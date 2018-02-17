@@ -53,3 +53,4 @@ psycopg2==2.7.4
 
 # Your custom requirements go here
 py-solc==2.1.0
+web3==3.16.5
