@@ -60,7 +60,7 @@ services:
     ports: []
     command: /start-celerybeat.sh
 
-  node:
+  ganache:
     image: trufflesuite/ganache-cli
     ports:
       - "8545:8545"
