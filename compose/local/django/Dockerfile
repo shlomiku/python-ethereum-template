@@ -18,6 +18,13 @@ COPY ./compose/local/django/celery/beat/start.sh /start-celerybeat.sh
 RUN sed -i 's/\r//' /start-celerybeat.sh
 RUN chmod +x /start-celerybeat.sh
 
+# installing solc
+COPY ./compose/local/django/install_solc.py /install_solc.py
+RUN python /install_solc.py
+#ENV SOLC_BINARY `find /root -name solc`
+ENV SOLC_BINARY /root/.py-solc/solc-v0.4.19/bin/solc
+RUN echo $SOLC_BINARY
+
 WORKDIR /app
 
 ENTRYPOINT ["/entrypoint.sh"]
@@ -25,10 +32,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 # Requirements have to be pulled and installed here, otherwise caching won't work
 COPY ./requirements /requirements
 RUN pip install -r /requirements/local.txt
-COPY ./compose/local/django/install_solc.py /install_solc.py
-RUN python /install_solc.py
-#ENV SOLC_BINARY `find /root -name solc`
-ENV SOLC_BINARY /root/.py-solc/solc-v0.4.19/bin/solc
-RUN echo $SOLC_BINARY
-# from solc import compile_source
-# compile_source(open('/app/solidity/test.sol').read())
+
