@@ -18,7 +18,11 @@ COPY ./compose/local/django/celery/beat/start.sh /start-celerybeat.sh
 RUN sed -i 's/\r//' /start-celerybeat.sh
 RUN chmod +x /start-celerybeat.sh
 
+# for Populus
+RUN apt-get install libssl-dev
+
 # installing solc
+RUN pip install py-solc==2.1.0
 COPY ./compose/local/django/install_solc.py /install_solc.py
 RUN python /install_solc.py
 #ENV SOLC_BINARY `find /root -name solc`
