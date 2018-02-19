@@ -63,6 +63,11 @@ class TestUserUpdateView(TestCase):
         contract_instance = self.w3.eth.contract(self.contract_interface['abi'], contract_address,
                                             ContractFactoryClass=ConciseContract)
         self.assertEqual('Hello there', contract_instance.greeting())
+        # we are using the ContractFactoryClass=ConciseContract, which is a unique factory for ease of use and
+        # maybe stuff I don't fully understand yet.
+        # this is the convetional way to use it
+        # contract_instance = self.w3.eth.contract(self.contract_interface['abi'], contract_address)
+        # contract_instance.call().greeting()
 
     def test_check_set_message(self):
         """
@@ -76,6 +81,11 @@ class TestUserUpdateView(TestCase):
                                                  ContractFactoryClass=ConciseContract)
         contract_instance.setGreeting('hello shlomi', transact={'from': self.w3.eth.accounts[0]})
         self.assertEqual('hello shlomi', contract_instance.greeting())
+        # we are using the ContractFactoryClass=ConciseContract, which is a unique factory for ease of use and
+        # maybe stuff I don't fully understand yet. this is the convetional way to use it
+        # contract_instance = self.w3.eth.contract(self.contract_interface['abi'], contract_address)
+        # contract_instance.transact({'from': self.w3.eth.accounts[0]}).setGreeting("what's up")
+
 
 
 
