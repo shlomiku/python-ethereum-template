@@ -52,6 +52,14 @@ class TestUserUpdateView(TestCase):
         print(contract_address)
         self.assertTrue(contract_address)
 
+    def test_check_generated_accounts(self):
+        """
+        the web3 instance generates accounts for us, this test will verify it
+        :return:
+        """
+        self.assertTrue(self.w3.eth.accounts)
+        self.assertEqual(len(self.w3.eth.accounts), 10)
+
     def test_check_default_message(self):
         """
         this test checks the default message in the deployed contract
