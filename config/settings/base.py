@@ -110,9 +110,13 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 # Uses django-environ to accept uri format
 # See: https://django-environ.readthedocs.io/en/latest/#supported-types
-DATABASES = {
-    'default': env.db('DATABASE_URL', default='postgres://localhost/ether_ready_py'),
-}
+
+DATABASES = {u'default': {'ENGINE':   'django.db.backends.postgresql_psycopg2',
+                              'HOST':     'postgres',
+                              'NAME':     'postgres',
+                              'PASSWORD': '',
+                              'PORT':     5432,
+                              'USER':     'postgres'}}
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
