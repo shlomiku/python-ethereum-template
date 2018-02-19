@@ -20,6 +20,7 @@ services:
     ports:
       - "8000:8000"
     command: /start.sh
+    container_name: ether
 
   postgres:
     build:
@@ -40,25 +41,25 @@ services:
   redis:
     image: redis:3.0
 
-  celeryworker:
-    # https://github.com/docker/compose/issues/3220
-    <<: *django
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celeryworker.sh
-
-  celerybeat:
-    # https://github.com/docker/compose/issues/3220
-    <<: *django
-    depends_on:
-      - redis
-      - postgres
-      - mailhog
-    ports: []
-    command: /start-celerybeat.sh
+#  celeryworker:
+#    # https://github.com/docker/compose/issues/3220
+#    <<: *django
+#    depends_on:
+#      - redis
+#      - postgres
+#      - mailhog
+#    ports: []
+#    command: /start-celeryworker.sh
+#
+#  celerybeat:
+#    # https://github.com/docker/compose/issues/3220
+#    <<: *django
+#    depends_on:
+#      - redis
+#      - postgres
+#      - mailhog
+#    ports: []
+#    command: /start-celerybeat.sh
 
   ganache:
     image: trufflesuite/ganache-cli
