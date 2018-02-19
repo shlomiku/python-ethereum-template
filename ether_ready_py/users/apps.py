@@ -13,14 +13,14 @@ class UsersConfig(AppConfig):
             Users system checks
             Users signal registration
         """
-        d = {
-            'language': 'Solidity',
-            'sources': ['solidity/test.sol']
-        }
-        # print(compile_standard('solidity/test.sol'))
-
-        os.environ['SOLC_BINARY'] = '/root/.py-solc/solc-v0.4.19/bin/solc'
-        compilation = compile_source(open('/app/solidity/test.sol').read())['<stdin>:Inbox']
-        print(compilation)
+        # d = {
+        #     'language': 'Solidity',
+        #     'sources': ['solidity/test.sol']
+        # }
+        # # print(compile_standard('solidity/test.sol'))
+        #
+        # os.environ['SOLC_BINARY'] = '/root/.py-solc/solc-v0.4.19/bin/solc'
+        # compilation = compile_source(open('/app/solidity/test.sol').read())['<stdin>:Inbox']
+        # print(compilation)
 
         pass
