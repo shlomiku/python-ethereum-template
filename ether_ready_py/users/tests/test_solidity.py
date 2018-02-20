@@ -10,7 +10,6 @@ logger = logging.getLogger('.'.join(__file__.split('/')[-2:]).rstrip('.py'))
 
 class TestSimpleSildityContract(TestCase):
     def setUp(self):
-        # call BaseUserTestCase.setUp()
         self.contract_source_code = '''
                     pragma solidity ^0.4.0;
 
