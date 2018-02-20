@@ -24,11 +24,16 @@ contract Lottery {
         return uint(sha3(block.difficulty, now, players));
     }
 
-    function pickWinner() public  {
-        require (msg.sender == manager); // only the manager can call this method
+    function pickWinner() public restricted {
         uint index = random() % players.length;
         players[index].transfer(this.balance);
         // now let's reset the object to be able to run a new lottery.
         players = new address[](0);
     }
+
+    modifier restricted() {
+        require (msg.sender == manager); // only the manager can call this method
+        _; // placeholder for calling function code
+    }
+
 }
