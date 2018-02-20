@@ -31,6 +31,10 @@ contract Lottery {
         players = new address[](0);
     }
 
+    function getPlayers() public view returns(address[]) {
+        return players;
+    }
+
     modifier restricted() {
         require (msg.sender == manager); // only the manager can call this method
         _; // placeholder for calling function code
