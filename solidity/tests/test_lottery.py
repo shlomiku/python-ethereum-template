@@ -1,4 +1,6 @@
 import os
+
+from ethereum.tester import TransactionFailed
 from test_plus.test import TestCase
 import logging, sys
 logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
@@ -56,6 +58,57 @@ class TestLotterySolidity(TestCase):
         :return:
         """
         self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
-        self.contract_instance.transact({'from': self.w3.eth.accounts[0], 'value': self.w3.toWei('0.01', 'ether')}).enter()
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0], 'value': self.w3.toWei('0.011', 'ether')}).enter()
         self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
+
+    def test_enter__fail_not_enough_ether(self):
+        """
+        expect to fail a transaction with not enough ether in the contract
+        :return:
+        """
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
+        with self.assertRaises(TransactionFailed):
+            self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                             'value': self.w3.toWei('0.0099', 'ether')}).enter()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
+
+    def test_enter__double_enter_register_once(self):
+        """
+        calling the enter() twice, making sure players list length is 1.
+        that relies on the fact that solidity list behave like python set
+        :return:
+        """
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
+
+    def test_pick_winner__players_list_is_empty_after(self):
+        """
+        this is checking the reset functionality of this contracr
+        :return:
+        """
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0]}).pickWinner()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
+
+    def test_pick_winner__only_manager_can_call_this_method(self):
+        """
+        this is checking the reset functionality of this contracr
+        :return:
+        """
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
+        with self.assertRaises(TransactionFailed):
+            self.contract_instance.transact({'from': self.w3.eth.accounts[1]}).pickWinner()
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0]}).pickWinner()
+        self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
 
