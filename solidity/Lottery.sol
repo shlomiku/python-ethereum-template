@@ -11,6 +11,11 @@ contract Lottery {
 
     function enter() public payable {
         require(msg.value > 0.01 ether);
+        for (uint i=0; i < players.length; ++i) {
+            if (msg.sender == players[i]) {
+                return;
+            }
+        }
         players.push(msg.sender);
     }
 
