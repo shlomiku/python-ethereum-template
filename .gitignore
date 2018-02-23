@@ -364,3 +364,52 @@ ether_ready_py/media/
 !/compose/local/
 
 .ethereum_data/
+
+
+# angular
+
+# compiled output
+/dist
+/dist-server
+/tmp
+/out-tsc
+
+# dependencies
+/lottery-fe-angular/node_modules
+
+# misc
+/lottery-fe-angular/.sass-cache
+/lottery-fe-angular/connect.lock
+/lottery-fe-angular/coverage
+/lottery-fe-angular/libpeerconnection.log
+/lottery-fe-angular/npm-debug.log
+/lottery-fe-angular/yarn-error.log
+/lottery-fe-angular/testem.log
+/lottery-fe-angular/typings
+
+# e2e
+/lottery-fe-angular/e2e/*.js
+/lottery-fe-angular/e2e/*.map
+
+# react
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/lottery-fe-react/node_modules
+
+# testing
+/lottery-fe-react/coverage
+
+# production
+/lottery-fe-react/build
+
+# misc
+/lottery-fe-react/.DS_Store
+/lottery-fe-react/.env.local
+/lottery-fe-react/.env.development.local
+/lottery-fe-react/.env.test.local
+/lottery-fe-react/.env.production.local
+
+/lottery-fe-react/npm-debug.log*
+/lottery-fe-react/yarn-debug.log*
+/lottery-fe-react/yarn-error.log*
