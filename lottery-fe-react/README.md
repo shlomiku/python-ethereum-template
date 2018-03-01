@@ -1,3 +1,15 @@
+Shlomi!
+to install web3 visual studio build tools are required. 
+this has the solution:
+https://github.com/chjj/pty.js/issues/60
+and this needs to be install with administrator cmd:
+
+npm install --global --production windows-build-tools
+npm config set msvs_version 2015 --global
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
