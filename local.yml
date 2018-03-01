@@ -74,3 +74,28 @@ services:
       - -a
       - '10'
       - --db=/ethereum_data
+
+  front_end_react:
+    build:
+      context: .
+      dockerfile: ./compose/local/front-end/react-create/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./lottery-fe-react:/opt/project
+      - /opt/project/node_modules # http://dchua.com/2016/02/07/getting-npm-packages-to-be-installed-with-docker-compose/
+    command: ping 8.8.8.8
+    container_name: react
+
+  front_end_angular:
+    build:
+      context: .
+      dockerfile: ./compose/local/front-end/angular/Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./lottery-fe-angular:/opt/project
+      - /opt/project/node_modules # http://dchua.com/2016/02/07/getting-npm-packages-to-be-installed-with-docker-compose/
+    command: ping 8.8.8.8
+#    command: npm start
+    container_name: angular
