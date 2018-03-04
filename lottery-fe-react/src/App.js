@@ -24,7 +24,10 @@ class App extends Component {
     render() {
         return (
             <div>
-            <p> our manager: {this.state.manager} </p>
+            <h2>Welcome to the Lottery game</h2>
+            <p> our manager is: {this.state.manager} </p>
+            <p> number of players: {this.state.players.length} </p>
+            <p> lottery amount: {this.state.balance} </p>
             </div>
     );
     }
