@@ -6,11 +6,7 @@ import lottery from './lottery';
 
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { manager: ''};
-
-    }
+    state = { manager: ''};
 
     // when the component is loaded to the page
     async componentDidMount() {
