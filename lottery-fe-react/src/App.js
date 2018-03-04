@@ -27,7 +27,7 @@ class App extends Component {
             <h2>Welcome to the Lottery game</h2>
             <p> our manager is: {this.state.manager} </p>
             <p> number of players: {this.state.players.length} </p>
-            <p> lottery amount: {this.state.balance} </p>
+            <p> lottery amount: {web3.utils.fromWei(this.state.balance, 'ether')} ether </p>
             </div>
     );
     }
