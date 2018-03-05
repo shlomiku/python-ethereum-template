@@ -82,8 +82,9 @@ class TestLotterySolidity(TestCase):
         self.contract_instance.transact({'from': self.w3.eth.accounts[0],
                                          'value': self.w3.toWei('0.011', 'ether')}).enter()
         self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
-        self.contract_instance.transact({'from': self.w3.eth.accounts[0],
-                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        with self.assertRaises(TransactionFailed):
+            self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                             'value': self.w3.toWei('0.011', 'ether')}).enter()
         self.assertEqual(len(self.contract_instance_concise.getPlayers()), 1)
 
     def test_pick_winner__players_list_is_empty_after(self):
