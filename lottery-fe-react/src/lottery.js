@@ -1,7 +1,8 @@
 import web3 from './web3';
 
 // the address of the deployed contract, received from running deploy.js
-const address = '0xbD31c969F2983f6a4c668d9B2cDbf992c2eC1FCF';
+// const address = '0xbD31c969F2983f6a4c668d9B2cDbf992c2eC1FCF';
+const address = '0xc0BdBA2e6F29C6e5d446F8BEEf01F0943D56fA7a';
 
 // the result of the deploy.js script. I used this for pretty print json: http://jsonprettyprint.com/
 const abi = [
