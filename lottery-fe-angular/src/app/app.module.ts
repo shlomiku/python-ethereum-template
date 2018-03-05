@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { LotteryComponent } from './lottery/lottery.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -12,7 +11,9 @@ import { LotteryComponent } from './lottery/lottery.component';
     LotteryComponent
   ],
   imports: [
-    BrowserModule
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
