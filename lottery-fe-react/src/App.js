@@ -10,7 +10,8 @@ class App extends Component {
         manager: '',
         players: [],
         balance: '',
-        value: ''
+        value: '',
+        message: ''
     };
 
     // when the component is loaded to the page
@@ -21,6 +22,18 @@ class App extends Component {
         const balance = await web3.eth.getBalance(lottery.options.address);
         this.setState({manager, players, balance});
     }
+    onSubmit = async (event) => {
+        event.preventDefault(); // prevent the default empty value
+        const accounts = await web3.eth.getAccounts();
+        console.log(accounts);
+        this.setState({message: "Waiting for transaction to complete"});
+        await lottery.methods.enter().send({
+            from: accounts[0],
+            value: web3.utils.toWei(this.state.value, 'ether')
+        });
+        this.setState({message: "Transaction complete, welcome to the game"});
+
+    };
 
     render() {
         return (
@@ -30,16 +43,19 @@ class App extends Component {
                 <p> number of players: {this.state.players.length} </p>
                 <p> lottery amount: {web3.utils.fromWei(this.state.balance, 'ether')} ether </p>
                 <hr/>
-                <form>
+                <form onSubmit={this.onSubmit}>
                     <h4>Want to play?</h4>
                     <label>Amount of ether to enter</label>
                     <input value={this.state.value}
-                           onChange={event =>
-                               this.setState({value: event.target.value})
+                           onChange={event => {
+                               this.setState({value: event.target.value});
+                               console.log(event.target.value);
+                           }
                            }/>
                     <button>Enter</button>
                 </form>
-
+                <hr/>
+                <h3>{this.state.message}</h3>
             </div>
         );
     }
