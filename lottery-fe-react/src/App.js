@@ -9,7 +9,8 @@ class App extends Component {
     state = {
         manager: '',
         players: [],
-        balance: ''
+        balance: '',
+        value: ''
     };
 
     // when the component is loaded to the page
@@ -24,12 +25,23 @@ class App extends Component {
     render() {
         return (
             <div>
-            <h2>Welcome to the Lottery game</h2>
-            <p> our manager is: {this.state.manager} </p>
-            <p> number of players: {this.state.players.length} </p>
-            <p> lottery amount: {web3.utils.fromWei(this.state.balance, 'ether')} ether </p>
+                <h2>Welcome to the Lottery game</h2>
+                <p> our manager is: {this.state.manager} </p>
+                <p> number of players: {this.state.players.length} </p>
+                <p> lottery amount: {web3.utils.fromWei(this.state.balance, 'ether')} ether </p>
+                <hr/>
+                <form>
+                    <h4>Want to play?</h4>
+                    <label>Amount of ether to enter</label>
+                    <input value={this.state.value}
+                           onChange={event =>
+                               this.setState({value: event.target.value})
+                           }/>
+                    <button>Enter</button>
+                </form>
+
             </div>
-    );
+        );
     }
 }
 
