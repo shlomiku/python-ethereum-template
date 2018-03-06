@@ -113,3 +113,20 @@ class TestLotterySolidity(TestCase):
         self.contract_instance.transact({'from': self.w3.eth.accounts[0]}).pickWinner()
         self.assertEqual(len(self.contract_instance_concise.getPlayers()), 0)
 
+    def test_pick_winner__check_previous_winner_value(self):
+        """
+        this is checking the reset functionality of this contracr
+        :return:
+        """
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0],
+                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0]}).pickWinner()
+        prev_winner = self.contract_instance_concise.getPreviousWinner()
+        self.assertEqual(prev_winner, self.w3.eth.accounts[0])
+        # now check a different winner ( address[1] )
+        self.contract_instance.transact({'from':  self.w3.eth.accounts[1],
+                                         'value': self.w3.toWei('0.011', 'ether')}).enter()
+        self.contract_instance.transact({'from': self.w3.eth.accounts[0]}).pickWinner()
+        prev_winner = self.contract_instance_concise.getPreviousWinner()
+        self.assertEqual(prev_winner, self.w3.eth.accounts[1])
+

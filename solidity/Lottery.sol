@@ -3,6 +3,7 @@ pragma solidity ^0.4.17;
 contract Lottery {
     address public manager;
     address[] public players;
+    address public previousWinner;
 
 
     function Lottery() public {
@@ -31,11 +32,16 @@ contract Lottery {
         return uint(sha3(block.difficulty, now, players));
     }
 
+    function getPreviousWinner() public view returns (address){
+        return previousWinner;
+    }
+
     function pickWinner() public restricted {
         uint index = random() % players.length;
+        previousWinner = players[index];
         players[index].transfer(this.balance);
         // now let's reset the object to be able to run a new lottery.
-        players = new address[](0);
+        players = new address[](0); // an array with length 0
     }
 
     function getPlayers() public view returns(address[]) {
